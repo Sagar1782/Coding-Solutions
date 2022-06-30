@@ -1,0 +1,42 @@
+class Solution {
+public:
+    void solve(int i,int j,vector<vector<int>>& grid,vector<vector<int>>&vis,int count,int& ans,int total){
+        if(i>=grid.size()||j>=grid[0].size()||i<0||j<0||grid[i][j]==-1||vis[i][j]==1)return;
+        if(grid[i][j]==2){
+            if(count==total){
+                ans++;
+            }
+            return;
+        }
+        vis[i][j]=1;
+        solve(i+1,j,grid,vis,count+1,ans,total);
+        solve(i,j+1,grid,vis,count+1,ans,total);
+        solve(i-1,j,grid,vis,count+1,ans,total);
+        solve(i,j-1,grid,vis,count+1,ans,total);
+        vis[i][j]=0;
+        return;
+
+    }
+        
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        int cnt=0;
+        int l,m;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==-1)cnt++;
+                if(grid[i][j]==1){
+                    l=i;
+                    m=j;
+                }
+            }
+        }
+        vector<vector<int>>vis(grid.size(),vector<int>(grid[0].size(),0));
+        int total=(grid.size()*grid[0].size())-cnt;
+        int ans=0;
+        
+        solve(l,m,grid,vis,1,ans,total);
+        
+        return ans;
+
+    }
+};
