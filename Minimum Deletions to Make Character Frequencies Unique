@@ -1,0 +1,29 @@
+    int minDeletions(string s) {
+        int ans=0;
+        map<char,int>mp;
+        map<int,int>mp1;
+        for(int i=0;i<s.size();i++){
+            mp[s[i]]++;
+        }
+        for(auto it:mp){
+            mp1[it.second]++;
+        }
+        
+        for(auto it:mp1){
+            int count=0;
+            int i=it.first;
+            int j=it.second-1;
+            while(i>0&&j>0){
+                // count=count+j;
+                if(mp1.find(i)==mp1.end()){
+                    mp1[i]++;
+                    j--;
+                }
+                count=count+j;
+                i--;
+               
+            }
+            ans+=count;
+        }
+        return ans;
+    }
